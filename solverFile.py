@@ -14,7 +14,7 @@ class solverClass(object):
         patterns = np.zeros(shape = (image_size**2, numPatterns))
         x = int(round(image_size**2*sparsity))
         for i in range(numPatterns):
-            r = random.sample(range(0, image_size**2-1), x)
+            r = random.sample(range(0, image_size**2), x)
             r = np.asarray(r)
             patterns[r,i] = 1
         return patterns

@@ -17,7 +17,7 @@ def evaluate_stability(network, patterns, average=True):
     error = np.empty(len(patterns))
     for i, p in enumerate(patterns):
         network.present_pattern(p)
-        network.step(eval_epochs)
+        network.step(eval_epochs, bias=0)
         output = netFisher.s
         error[i] = dice_coefficient(p, output)
     if average:

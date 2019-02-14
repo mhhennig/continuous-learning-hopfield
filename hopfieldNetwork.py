@@ -34,6 +34,10 @@ class hopfieldNet(object):
 
     def step(self, k=1, bias=1):
         #print('sparsity:  ', self.sparsity)
+        d = self.w[np.diag_indices_from(self.w)]
+        if np.any(d):
+            d = 0.0
+            print("The diagonal was removed")
         for _ in range(k):
             probs = 0.5 + 0.5 * np.sign((self.w @ self.s) - bias)
             # probs = 0.5 + 0.5 * np.sign((self.w @ self.s) - self.sparsity)
