@@ -1,0 +1,19 @@
+# Lab book on post-review work
+
+## Using sparsity = 0.5
+The initial code used sparsity = 0.1. For what I understand from Michael D's code, it looks like it uses purely the SIZE of the weight to determine whether it's important or not. We should understand if it works just because "large is important" or because of the precise reasoning on Fisher information we have proposed.
+
+First of all, why did we use w itself in the paper, and not w(1-w), which is our calculation? Is it just because the weights are experimentally below 1 and so it's the same thing? (Yes)
+
+In sparsity = 0.5, smaller weights are supposed to be more important. If I run a simulation in which I use -w^2 instead of w as an argument of the learning rule, the result is (using the Threshold rule only):
+ - if I set the initialisation of c in the optimiser to > 0.0, it gives the same result as naive Hopfield. Obvious, since it will not threshold the (negative) F at all.
+ - setting the initialisation to something small below 0, it doesn't learn almost at all.
+
+If I use w^2 instead of -w^2, with positive initialisation, it's even worse again. No learning at all. This SHOULD BE INVESTIGATED FURTHER AND CHECKED. Why is this?
+
+PROMISING CASE: Using bias=0, F=-w^2 and threshold=-0.00001. In this case, there is "uniform" forgetting, instead of "sequential" forgetting.
+
+
+## Using sparsity=0.5 and alpha=0.1
+
+Here, the naive Hopfield rule already performs very well. Adding a threshold using the -w^2 Fisher function causes WORSE results. However, adding a threshold of 0.27 with Fisher equal to w^2 (so blocking weights that are large in modulus, rather than small) makes it very slightly better. This is the OPPOSITE of what our theory predicts.
